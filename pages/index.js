@@ -188,7 +188,11 @@ export default function Home({githubData, githubRepoData, instagramData, pageInf
     );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps({ req, res }) {
+    res.setHeader(
+        'Cache-Control',
+        'public, s-maxage=86400, stale-while-revalidate=86400'
+    )
     let githubRequest = await fetch('https://api.github.com/users/quacksire')
     let githubData = await githubRequest.json()
 
