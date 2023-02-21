@@ -114,7 +114,7 @@ export default function Home({githubData, githubRepoData, instagramData, pageInf
                             </Grid>
                             <Grid>
                                 <Card isPressable={true} isHoverable={true} variant={"flat"} style={{backgroundColor: "var(--nextui-colors-background)"}}>
-                                    <KofiButton color="var(--nextui-colors-background)" title="Support" kofiID="quacksire" />
+                                    <KofiButton color="var(--nextui-colors-black)" title="Support" kofiID="quacksire" />
                                 </Card>
                             </Grid>
                         </Grid.Container>
@@ -176,12 +176,12 @@ export default function Home({githubData, githubRepoData, instagramData, pageInf
             </Grid>
         </Grid.Container >
             <Spacer y={1} />
-            <Grid.Container justify="center">
+            <Grid.Container gap={1} justify="center">
                 <Grid>
-                    <Tooltip content={`Commit ${pageInfo.sha}`} placement="top">
-                    <Text css={{color: "$neutral"}}> Made with 💖 on {String(new Date(pageInfo.buildTime).toLocaleString()).split(',')[0]} at {String(new Date(pageInfo.buildTime).toLocaleString()).split(',')[1]}</Text>
+                    <Tooltip content={`${pageInfo.commitMessage} | ${pageInfo.sha}`} placement="top">
+                    <Text css={{color: "$neutral"}}> Made with 💖 on {new Date(Date.parse(pageInfo.buildTime)).toLocaleDateString()} at {new Date(Date.parse(pageInfo.buildTime)).toLocaleTimeString()} in {pageInfo.region}</Text>
                     </Tooltip>
-                    </Grid>
+                </Grid>
             </Grid.Container>
             <Spacer y={1} />
         </Container>
@@ -217,8 +217,10 @@ export async function getServerSideProps({ req, res }) {
             githubRepoData: githubRepoData,
             instagramData: instagramData,
             pageInfo: {
-                sha: process.env.CF_PAGES_COMMIT_SHA || "dev",
-                buildTime: new Date().toLocaleString(),
+                sha: process.env.VERCEL_GIT_COMMIT_SHA || "dev",
+                commitMessage: process.env.VERCEL_GIT_COMMIT_MESSAGE || "dev",
+                buildTime: new Date().toISOString(),
+                region: process.env.AWS_REGION || "my house",
             }
         }
     }
