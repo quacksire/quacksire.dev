@@ -40,7 +40,7 @@ export default function Home({githubData, githubRepoData, instagramData}) {
                 <link rel="icon" href={'/profile.png'} />
             </Head>
         <Grid.Container gap={2} justify="center">
-            <Grid xs={12} md={6} style={{minHeight: "645px"}}>
+            <Grid xs={12} md={6}>
                 <Card variant={"flat"} style={{backgroundColor: "var(--nextui-colors-background)"}}>
                     <Card.Body >
                         <Grid.Container gap={1}>
