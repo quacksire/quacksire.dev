@@ -1,4 +1,9 @@
+
 export default function handler(req, res) {
+    res.redirect("https://webfinger.io/.well-known/webfinger")
+
+    /*
+
     res.send(`{
     "subject":"acct:RobEarlam@mastodon.social",
     "aliases":
@@ -24,4 +29,6 @@ export default function handler(req, res) {
         }
     ]
 }`);
+
+     */
 }
