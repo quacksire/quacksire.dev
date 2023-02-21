@@ -7,7 +7,7 @@ const nextConfig = {
     return [
       {
         source: '/.well-known/webfinger',
-        destination: '/api/finger'
+        destination: 'https://webfinger.io/.well-known/webfinger'
       }
     ];
   }
