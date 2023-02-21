@@ -1,4 +1,4 @@
-import {Card, Container, Grid, Spacer, Text, User} from "@nextui-org/react";
+import {Card, Container, Grid, Spacer, Text, Tooltip, User} from "@nextui-org/react";
 import {InstagramLogoIcon, GitHubLogoIcon, StarIcon, TwitterLogoIcon, RocketIcon, EnvelopeClosedIcon, LinkedInLogoIcon, DiscordLogoIcon} from "@radix-ui/react-icons";
 import * as randomcolor from "randomcolor";
 import {useState, useEffect} from "react";
@@ -8,8 +8,7 @@ import * as title from "title";
 import ProfilePic from "../public/profile.png";
 import GarbleText from "../components/garbleText";
 
-
-export default function Home({githubData, githubRepoData, instagramData}) {
+export default function Home({githubData, githubRepoData, instagramData, pageInfo}) {
     const [nameRotation, setNameRotation] = useState(0);
     const [randomColors, setRandomColors] = useState([
         randomcolor(),
@@ -175,7 +174,16 @@ export default function Home({githubData, githubRepoData, instagramData}) {
                     </Card.Body>
                 </Card>
             </Grid>
-        </Grid.Container>
+        </Grid.Container >
+            <Spacer y={1} />
+            <Grid.Container justify="center">
+                <Grid>
+                    <Tooltip content={`Commit ${pageInfo.sha}`} placement="top">
+                    <Text css={{color: "$neutral"}}> Made with 💖 on {String(new Date(pageInfo.buildTime).toLocaleString()).split(',')[0]} at {String(new Date(pageInfo.buildTime).toLocaleString()).split(',')[1]}</Text>
+                    </Tooltip>
+                    </Grid>
+            </Grid.Container>
+            <Spacer y={1} />
         </Container>
     );
 }
@@ -203,7 +211,11 @@ export async function getStaticProps() {
         props: {
             githubData: githubData,
             githubRepoData: githubRepoData,
-            instagramData: instagramData
+            instagramData: instagramData,
+            pageInfo: {
+                sha: process.env.CF_PAGES_COMMIT_SHA || "dev",
+                buildTime: new Date().toLocaleString(),
+            }
         }
     }
 
