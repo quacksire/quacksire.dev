@@ -6,6 +6,7 @@ import KofiButton from "kofi-button";
 import Head from "next/head";
 import * as title from "title";
 import ProfilePic from "../public/profile.png";
+import GarbleText from "../components/garbleText";
 
 
 export default function Home({githubData, githubRepoData, instagramData}) {
@@ -22,6 +23,7 @@ export default function Home({githubData, githubRepoData, instagramData}) {
         randomcolor(),
         randomcolor(),
     ]);
+    const [reset, setReset] = useState(false);
     useEffect(() => {
         setInterval(() => {
             //Get random int from 0 to 100
@@ -61,6 +63,10 @@ export default function Home({githubData, githubRepoData, instagramData}) {
                                         randomcolor(),
                                         randomcolor(),
                                     ])
+                                    setReset(true);
+                                    setTimeout(() => {
+                                        setReset(false);
+                                    }, 50);
                                 }}>
                                 <Text href={'#'}  h1 css={{
                                     textGradient: `${nameRotation}deg, ${randomColors[0]} -20%, ${randomColors[1]} -70%`,
@@ -72,13 +78,13 @@ export default function Home({githubData, githubRepoData, instagramData}) {
                         <Spacer y={0.25} />
                         <Text h2 style={{paddingLeft: "5px", fontWeight: "900"}} css={{
                             textGradient: `${nameRotation}deg, ${randomColors[2]} -20%, ${randomColors[3]} -70%`,
-                        }}> Web Developer </Text>
+                        }}><GarbleText text={"Web Developer"} reset={reset} /> </Text>
                         <Text h2 style={{paddingLeft: "5px", fontWeight: "900"}} css={{
                             textGradient: `${nameRotation}deg, ${randomColors[4]} -20%, ${randomColors[5]} -70%`,
-                        }}> Transit Advocate </Text>
+                        }}> <GarbleText text={"Transit Advocate"} reset={reset} /> </Text>
                         <Text h2 style={{paddingLeft: "5px", fontWeight: "900"}} css={{
                             textGradient: `${nameRotation}deg, ${randomColors[6]} -20%, ${randomColors[7]} -70%`,
-                        }}> & Amateur Photographer </Text>
+                        }}> <GarbleText reset={reset} text={"& Amateur Photographer"} /> </Text>
                         <Spacer y={1} />
                         <Grid.Container gap={1}>
 
@@ -122,7 +128,7 @@ export default function Home({githubData, githubRepoData, instagramData}) {
                 <Card variant={"flat"} style={{backgroundColor: "var(--nextui-colors-background)", paddingTop: "20px"}}>
                     <Card.Body>
                         <Text h2><RocketIcon width={30} height={30}/> Projects</Text>
-                        {githubRepoData.map((repo) => (
+                        {githubRepoData.map((repo, index) => (
                         <Card key={repo.id} variant={"flat"} isHoverable={true} isPressable={true} style={{ marginBottom: "10px", backgroundColor: "var(--nextui-colors-background)"}} onPress={() => window.open(repo.homepage, "_blank")}>
                             <Card.Body>
                                 <Grid.Container gap={2} justify="left">
@@ -130,7 +136,8 @@ export default function Home({githubData, githubRepoData, instagramData}) {
                                         <Text h3>{title(String(repo.name).replaceAll('-', " "))}</Text>
                                     </Grid>
                                     <Grid css={{color: "$neutral"}}>
-                                        <Text h4 color={'neutral'}><StarIcon /> {repo.stargazers_count}</Text>
+                                        <Text h4 color={'neutral'}><StarIcon />
+                                            {repo.stargazers_count} </Text>
                                     </Grid>
                                 </Grid.Container>
                                 <Text>{repo.description}</Text>
