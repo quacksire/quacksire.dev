@@ -220,7 +220,7 @@ export async function getServerSideProps({ req, res }) {
                 sha: process.env.VERCEL_GIT_COMMIT_SHA || "dev",
                 commitMessage: process.env.VERCEL_GIT_COMMIT_MESSAGE || "dev",
                 buildTime: new Date().toISOString(),
-                region: process.env.AWS_REGION || "my house",
+                region: process.env.VERCEL_REGION || "my house",
             }
         }
     }
