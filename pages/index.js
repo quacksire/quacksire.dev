@@ -1,9 +1,10 @@
 import {Card, Container, Grid, Spacer, Text, User} from "@nextui-org/react";
-import {InstagramLogoIcon, GitHubLogoIcon, StarIcon, TwitterLogoIcon, ImageIcon} from "@radix-ui/react-icons";
+import {InstagramLogoIcon, GitHubLogoIcon, StarIcon, TwitterLogoIcon, RocketIcon, EnvelopeClosedIcon, LinkedInLogoIcon, DiscordLogoIcon} from "@radix-ui/react-icons";
 import * as randomcolor from "randomcolor";
 import {useState, useEffect} from "react";
 import KofiButton from "kofi-button";
 import Head from "next/head";
+import * as title from "title";
 import ProfilePic from "../public/profile.png";
 
 
@@ -39,7 +40,7 @@ export default function Home({githubData, githubRepoData, instagramData}) {
                 <link rel="icon" href={'/profile.png'} />
             </Head>
         <Grid.Container gap={2} justify="center">
-            <Grid xs={12} md={6}>
+            <Grid xs={12} md={6} style={{minHeight: "645px"}}>
                 <Card variant={"flat"} style={{backgroundColor: "var(--nextui-colors-background)"}}>
                     <Card.Body >
                         <Grid.Container gap={1}>
@@ -79,16 +80,36 @@ export default function Home({githubData, githubRepoData, instagramData}) {
                             textGradient: `${nameRotation}deg, ${randomColors[6]} -20%, ${randomColors[7]} -70%`,
                         }}> & Amateur Photographer </Text>
                         <Spacer y={1} />
-                        <Grid.Container>
+                        <Grid.Container gap={1}>
+
                             <Grid>
-                                <Card isPressable={true} variant={"flat"} style={{backgroundColor: "var(--nextui-colors-background)"}}>
-                                    <KofiButton color="var(--nextui-colors-background)" title="Support" kofiID="quacksire" />
+                                <Spacer y={0.25} />
+                                <Card isPressable={true} variant={"flat"} isHoverable={true} style={{backgroundColor: "var(--nextui-colors-background)"}} onPress={() => window.open("https://twitter.com/duckdoquack", "_blank")}>
+                                        <TwitterLogoIcon width={30} height={30} style={{paddingLeft: "5px"}}/>
                                 </Card>
                             </Grid>
                             <Grid>
                                 <Spacer y={0.25} />
-                                <Card isPressable={true} variant={"flat"} style={{backgroundColor: "var(--nextui-colors-background)"}} onPress={() => window.open("https://twitter.com/duckdoquack", "_blank")}>
-                                        <TwitterLogoIcon width={30} height={30}/>
+                                <Card isPressable={true} variant={"flat"} isHoverable={true} style={{backgroundColor: "var(--nextui-colors-background)", width: "35px"}} onPress={() => window.open("https://discord.com/users/569910296303632414", "_blank")}>
+                                    <DiscordLogoIcon width={30} height={30} style={{paddingLeft: "5px"}}/>
+                                </Card>
+                            </Grid>
+                            <Grid>
+                                <Spacer y={0.25} />
+                                <Card isPressable={true} variant={"flat"} isHoverable={true} style={{backgroundColor: "var(--nextui-colors-background)", width: "35px"}} onPress={() => window.open("mailto:sam@quacksire.dev?subject=Hello!")}>
+                                    <EnvelopeClosedIcon width={30} height={30} style={{paddingLeft: "5px"}}/>
+
+                                </Card>
+                            </Grid>
+                            <Grid>
+                                <Spacer y={0.25} />
+                                <Card isPressable={true} variant={"flat"} isHoverable={true} style={{backgroundColor: "var(--nextui-colors-background)", width: "35px"}} onPress={() => window.open("https://www.linkedin.com/in/sam-jeffs/", "_blank")}>
+                                    <LinkedInLogoIcon width={30} height={30} style={{paddingLeft: "5px"}}/>
+                                </Card>
+                            </Grid>
+                            <Grid>
+                                <Card isPressable={true} isHoverable={true} variant={"flat"} style={{backgroundColor: "var(--nextui-colors-background)"}}>
+                                    <KofiButton color="var(--nextui-colors-background)" title="Support" kofiID="quacksire" />
                                 </Card>
                             </Grid>
                         </Grid.Container>
@@ -99,18 +120,14 @@ export default function Home({githubData, githubRepoData, instagramData}) {
 
             <Grid xs={12} md={6}>
                 <Card variant={"flat"} style={{backgroundColor: "var(--nextui-colors-background)", paddingTop: "20px"}}>
-                    <Card.Header>
-                        <Text h2><GitHubLogoIcon width={30} height={30}/> GitHub</Text>
-                        <Spacer y={1}></Spacer>
-                        <Text>@quacksire</Text>
-                    </Card.Header>
                     <Card.Body>
+                        <Text h2><RocketIcon width={30} height={30}/> Projects</Text>
                         {githubRepoData.map((repo) => (
-                        <Card key={repo.id} variant={"flat"} isHoverable={true} isPressable={true} style={{ marginBottom: "10px", backgroundColor: "var(--nextui-colors-background)"}} onPress={() => window.open(repo.html_url, "_blank")}>
+                        <Card key={repo.id} variant={"flat"} isHoverable={true} isPressable={true} style={{ marginBottom: "10px", backgroundColor: "var(--nextui-colors-background)"}} onPress={() => window.open(repo.homepage, "_blank")}>
                             <Card.Body>
                                 <Grid.Container gap={2} justify="left">
                                     <Grid>
-                                        <Text h3>{repo.name}</Text>
+                                        <Text h3>{title(String(repo.name).replaceAll('-', " "))}</Text>
                                     </Grid>
                                     <Grid css={{color: "$neutral"}}>
                                         <Text h4 color={'neutral'}><StarIcon /> {repo.stargazers_count}</Text>
@@ -161,6 +178,7 @@ export async function getStaticProps() {
     let githubData = await githubRequest.json()
 
     let githubRepos = [
+        "https://api.github.com/repos/ciderapp/Cider",
         "https://api.github.com/repos/quacksire/caltrans-cameras-next",
         "https://api.github.com/repos/quacksire/looped",
     ]
