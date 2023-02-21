@@ -39,6 +39,7 @@ export default function Home({githubData, githubRepoData, instagramData, pageInf
             <Head>
                 <title>Quacksire</title>
                 <link rel="icon" href={'/profile.png'} />
+                <link rel={'me'} href={"https://social.ridetrans.it/@qwacksire"}/>
             </Head>
         <Grid.Container gap={2} justify="center">
             <Grid xs={12} md={6}>
