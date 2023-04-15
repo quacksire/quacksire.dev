@@ -102,6 +102,12 @@ export default function Home({githubData, githubRepoData, instagramData, pageInf
                             </Grid>
                             <Grid>
                                 <Spacer y={0.25} />
+                                <Card isPressable={true} variant={"flat"} isHoverable={true} style={{backgroundColor: "var(--nextui-colors-background)", width: "35px"}} onPress={() => window.open("https://github.com/quacksire", "_blank")}>
+                                    <GitHubLogoIcon width={30} height={30} style={{paddingLeft: "5px"}}/>
+                                </Card>
+                            </Grid>
+                            <Grid>
+                                <Spacer y={0.25} />
                                 <Card isPressable={true} variant={"flat"} isHoverable={true} style={{backgroundColor: "var(--nextui-colors-background)", width: "35px"}} onPress={() => window.open("mailto:sam@quacksire.dev?subject=Hello!")}>
                                     <EnvelopeClosedIcon width={30} height={30} style={{paddingLeft: "5px"}}/>
 
