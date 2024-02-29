@@ -157,7 +157,7 @@ export default function Home({githubData, githubRepoData, instagramData, pageInf
                     <Card.Header>
                         <Text h2><InstagramLogoIcon  width={30} height={30}/> Instagram</Text>
                         <Spacer y={1}></Spacer>
-                        <Text>@duckdoquack</Text>
+                        <Text>@quacksireig</Text>
                     </Card.Header>
                     <Card.Body>
                         <Grid.Container gap={2} justify="center">
