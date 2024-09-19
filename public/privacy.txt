@@ -4,7 +4,7 @@ This Application collects some Personal Data from its Users.
 
 This document contains a section dedicated to Californian and Brazilian consumers and their privacy rights. Additionally, this document can be printed using the print button in any modern browser.
 
-Owner and Data Controller: Quacksire
+Owner and Data Controller: Sam Jeffs
 
 Owner contact email: [privacy@quacksire.dev](mailto:privacy@quacksire.dev)
 
